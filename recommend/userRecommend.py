@@ -7,11 +7,24 @@ firebase_admin.initialize_app(cred,{
     'databaseURL' : 'https://healingfeeling-9c1bf-default-rtdb.firebaseio.com/'
 })
 
-dir = db.reference('score').child('노래')
-dirbook = db.reference('score').child('도서')
-dirwhere = db.reference('score').child('장소')
+# 행복 ratings 
+happydirsong = db.reference('score').child('노래')
+happydirbook = db.reference('score').child('도서')
+happydirwhere = db.reference('score').child('장소')
 
-print(dir.get())
+# 분노 ratings 
+angrydirsong = db.reference('angryscore').child('노래')
+angrydirbook = db.reference('angryscore').child('도서')
+angrydirwhere = db.reference('angryscore').child('장소')
+
+# 슬픔 ratings 
+saddirsong = db.reference('sadscore').child('노래')
+saddirbook = db.reference('sadscore').child('도서')
+saddirwhere = db.reference('sadscore').child('장소')
+
+print(happydirsong.get())
+print(angrydirsong.get())
+print(saddirsong.get())
 
 
 #!/usr/bin/env python
@@ -23,24 +36,70 @@ print(dir.get())
 import math
 import pandas as pd
 
-    
-dataset_df=pd.DataFrame(dir.get())
-dataset_df.fillna("Not Seen Yet",inplace=True)
-dataset_df
 
-dataset_df2=pd.DataFrame(dirbook.get())
-dataset_df2.fillna("Not Seen Yet",inplace=True)
-dataset_df2
+# 행복 ratings
+happy_dataset_df=pd.DataFrame(happydirsong.get())
+happy_dataset_df.fillna("Not Seen Yet",inplace=True)
+happy_dataset_df
 
-dataset_df3=pd.DataFrame(dirwhere.get())
-dataset_df3.fillna("Not Seen Yet",inplace=True)
-dataset_df3
+happy_dataset_df2=pd.DataFrame(happydirbook.get())
+happy_dataset_df2.fillna("Not Seen Yet",inplace=True)
+happy_dataset_df2
+
+happy_dataset_df3=pd.DataFrame(happydirwhere.get())
+happy_dataset_df3.fillna("Not Seen Yet",inplace=True)
+happy_dataset_df3
+
+# 분노 ratings
+angry_dataset_df=pd.DataFrame(angrydirsong.get())
+angry_dataset_df.fillna("Not Seen Yet",inplace=True)
+angry_dataset_df
+
+angry_dataset_df2=pd.DataFrame(angrydirbook.get())
+angry_dataset_df2.fillna("Not Seen Yet",inplace=True)
+angry_dataset_df2
+
+angry_dataset_df3=pd.DataFrame(angrydirwhere.get())
+angry_dataset_df3.fillna("Not Seen Yet",inplace=True)
+angry_dataset_df3
+
+# 슬픔 ratings
+sad_dataset_df=pd.DataFrame(saddirsong.get())
+sad_dataset_df.fillna("Not Seen Yet",inplace=True)
+sad_dataset_df
+
+sad_dataset_df2=pd.DataFrame(saddirbook.get())
+sad_dataset_df2.fillna("Not Seen Yet",inplace=True)
+sad_dataset_df2
+
+sad_dataset_df3=pd.DataFrame(saddirwhere.get())
+sad_dataset_df3.fillna("Not Seen Yet",inplace=True)
+sad_dataset_df3
+
+
 # In[36]:
-dataset=dir.get()
-datasetbook=dirbook.get()
-datasetwhere=dirwhere.get()
 
-print(dirbook.get())
+# 행복 ratings
+happydatasetsong=happydirsong.get()
+happydatasetbook=happydirbook.get()
+happydatasetwhere=happydirwhere.get()
+
+# 분노 ratings
+angrydatasetsong=angrydirsong.get()
+angrydatasetbook=angrydirbook.get()
+angrydatasetwhere=angrydirwhere.get()
+
+# 슬픔 ratings
+saddatasetsong=saddirsong.get()
+saddatasetbook=saddirbook.get()
+saddatasetwhere=saddirwhere.get()
+
+
+print(happydirbook.get())
+print("kkkkkkkkkkkk")
+print(angrydatasetsong)
+
+
 def unique_items_song(dataset):
     unique_items_list = []
     for person in dataset.keys():
@@ -70,9 +129,12 @@ def unique_items_where(dataset):
 # In[37]:
 
 
-print(unique_items_song(dataset))
-print(unique_items_book(datasetbook))
-print(unique_items_where(datasetwhere))
+print(unique_items_song(happydatasetsong))
+print(unique_items_book(happydatasetbook))
+print(unique_items_where(happydatasetwhere))
+
+print("살려줘")
+print(unique_items_song(angrydatasetsong))
 
 
 # In[61]:
@@ -126,9 +188,9 @@ def most_similar_users(dataset,target_person,no_of_users):
 
 
 tp = 'CvOap2Q2t7MTe47zBxAvBpgFBTW2'
-most_similar_users(dataset,tp,len(dataset))
-most_similar_users(datasetbook,tp,len(datasetbook))
-most_similar_users(datasetwhere,tp,len(datasetwhere))
+most_similar_users(happydatasetsong,tp,len(happydatasetsong))
+most_similar_users(happydatasetbook,tp,len(happydatasetbook))
+most_similar_users(happydatasetwhere,tp,len(happydatasetwhere))
 
 
 # In[62]:
@@ -172,8 +234,18 @@ b=False
 b2=False
 b3=False
 
-if tp in dataset.keys():
-    a=recommendation_phase(dataset,tp)
+c=False
+c2=False
+c3=False
+
+d=False
+d2=False
+d3=False
+
+
+# 행복 ratings
+if tp in happydatasetsong.keys():
+    a=recommendation_phase(happydatasetsong,tp)
     print(a)
     if a != -1:
         print(a)
@@ -182,49 +254,171 @@ if tp in dataset.keys():
         for webseries,weights in a:
             print(webseries,'——>',weights)
             if(b==False):
-                title=webseries
-                data=weights
+                happytitlesong=webseries
+                happydatasong=weights
             b=True
         
 else:
-    title="no"
-    data="no"
+    happytitlesong="no"
+    happydatasong="no"
 
-if tp in datasetbook.keys():
-        a=recommendation_phase(datasetbook,tp)
+if tp in happydatasetbook.keys():
+        a=recommendation_phase(happydatasetbook,tp)
         if a != -1:
             print("Recommendation Using User based Collaborative Filtering:  ")
             
             for webseries,weights in a:
                 print(webseries,'——>',weights)
                 if(b2==False):
-                    titlebook=webseries
-                    databook=weights
+                    happytitlebook=webseries
+                    happydatabook=weights
                 b2=True
             
 else:
-    titlebook="no"
-    databook="no"
+    happytitlebook="no"
+    happydatabook="no"
 
-if tp in datasetwhere.keys():
-        a=recommendation_phase(datasetwhere,tp)
+if tp in happydatasetwhere.keys():
+        a=recommendation_phase(happydatasetwhere,tp)
         if a != -1:
             print("Recommendation Using User based Collaborative Filtering:  ")
             for webseries,weights in a:
                 print(webseries,'——>',weights)
                 if(b3==False):
-                    titlewhere=webseries
-                    datawhere=weights
+                    happytitlewhere=webseries
+                    happydatawhere=weights
                 b3=True
             
 else:
-    titlewhere="no"
-    datawhere="no"
+    happytitlewhere="no"
+    happydatawhere="no"
+
+
+# 분노 ratings
+
+if tp in angrydatasetsong.keys():
+    a=recommendation_phase(angrydatasetsong,tp)
+    print(a)
+    if a != -1:
+        print(a)
+        print("분노!!  ")
+        
+        for webseries,weights in a:
+            print(webseries,'——>',weights)
+            if(c==False):
+                angrytitlesong=webseries
+                angrydatasong=weights
+            c=True
+        
+else:
+    angrytitlesong="no"
+    angrydatasong="no"
+
+if tp in angrydatasetbook.keys():
+        a=recommendation_phase(angrydatasetbook,tp)
+        if a != -1:
+            print("Recommendation Using User based Collaborative Filtering:  ")
+            
+            for webseries,weights in a:
+                print(webseries,'——>',weights)
+                if(c2==False):
+                    angrytitlebook=webseries
+                    angrydatabook=weights
+                c2=True
+            
+else:
+    angrytitlebook="no"
+    angrydatabook="no"
+
+if tp in angrydatasetwhere.keys():
+        a=recommendation_phase(angrydatasetwhere,tp)
+        if a != -1:
+            print("Recommendation Using User based Collaborative Filtering:  ")
+            for webseries,weights in a:
+                print(webseries,'——>',weights)
+                if(c3==False):
+                    angrytitlewhere=webseries
+                    angrydatawhere=weights
+                c3=True
+            
+else:
+    angrytitlewhere="no"
+    angrydatawhere="no"
+
+
+# 슬픔
+
+if tp in saddatasetsong.keys():
+    a=recommendation_phase(saddatasetsong,tp)
+    print(a)
+    if a != -1:
+        print(a)
+        print("Recommendation Using User based Collaborative Filtering:  ")
+        
+        for webseries,weights in a:
+            print(webseries,'——>',weights)
+            if(d==False):
+                sadtitlesong=webseries
+                saddatasong=weights
+            d=True
+        
+else:
+    sadtitlesong="no"
+    saddatasong="no"
+
+if tp in saddatasetbook.keys():
+        a=recommendation_phase(saddatasetbook,tp)
+        if a != -1:
+            print("Recommendation Using User based Collaborative Filtering:  ")
+            
+            for webseries,weights in a:
+                print(webseries,'——>',weights)
+                if(d2==False):
+                    sadtitlebook=webseries
+                    saddatabook=weights
+                d2=True
+            
+else:
+    sadtitlebook="no"
+    saddatabook="no"
+
+if tp in saddatasetwhere.keys():
+        a=recommendation_phase(saddatasetwhere,tp)
+        if a != -1:
+            print("Recommendation Using User based Collaborative Filtering:  ")
+            for webseries,weights in a:
+                print(webseries,'——>',weights)
+                if(d3==False):
+                    sadtitlewhere=webseries
+                    saddatawhere=weights
+                d3=True
+            
+else:
+    sadtitlewhere="no"
+    saddatawhere="no"
+
+
 
 # In[ ]:
-print(title)
-print(data)
-print(titlebook)
-print(databook)
-print(titlewhere)
-print(datawhere)
+print(happytitlesong)
+print(happydatasong)
+print(happytitlebook)
+print(happydatabook)
+print(happytitlewhere)
+print(happydatawhere)
+print("\n")
+print(sadtitlesong)
+print(saddatasong)
+print(sadtitlebook)
+print(saddatabook)
+print(sadtitlewhere)
+print(saddatawhere)
+print("\n")
+print(angrytitlesong)
+print(angrydatasong)
+print(angrytitlebook)
+print(angrydatabook)
+print(angrytitlewhere)
+print(angrydatawhere)
+
+

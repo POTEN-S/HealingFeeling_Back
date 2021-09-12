@@ -1,15 +1,15 @@
 from rest_framework import viewsets
-from .serializers import PostSerializer
-from .models import Post,Recommend
+# from .serializers import PostSerializer
+# from .models import Post,Recommend
 from .models import Rating
-from .serializers import RatingsSerializer,RecommendSerializer
+from .serializers import RatingsSerializer
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-class PostViewset(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+# class PostViewset(viewsets.ModelViewSet):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
 
 class RatingsViewset(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
