@@ -10,6 +10,9 @@ firebase_admin.initialize_app(cred,{
     'databaseURL' : 'https://healingfeeling-9c1bf-default-rtdb.firebaseio.com/'
 })
 
+userid= db.reference('userid').get()
+print("asdfg"+userid)
+
 # 행복 ratings 
 happydirsong = db.reference('score').child('노래')
 happydirbook = db.reference('score').child('도서')
@@ -189,7 +192,7 @@ def most_similar_users(dataset,target_person,no_of_users):
     return scores[0:no_of_users]
 
 
-tp = 'CvOap2Q2t7MTe47zBxAvBpgFBTW2'
+tp = userid
 most_similar_users(happydatasetsong,tp,len(happydatasetsong))
 most_similar_users(happydatasetbook,tp,len(happydatasetbook))
 most_similar_users(happydatasetwhere,tp,len(happydatasetwhere))
