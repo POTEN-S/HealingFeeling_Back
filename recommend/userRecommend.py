@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+from .views import RatingsSerializer
 
 cred = credentials.Certificate("healingfeeling-9c1bf-firebase-adminsdk-kktgb-7226f7ac89.json")
 firebase_admin.initialize_app(cred,{
@@ -25,6 +26,7 @@ saddirwhere = db.reference('sadscore').child('장소')
 print(happydirsong.get())
 print(angrydirsong.get())
 print(saddirsong.get())
+print("fdkfajlsd"+RatingsSerializer.objects.order_by('happysongtitle').first())
 
 
 #!/usr/bin/env python
@@ -420,5 +422,3 @@ print(angrytitlebook)
 print(angrydatabook)
 print(angrytitlewhere)
 print(angrydatawhere)
-
-
