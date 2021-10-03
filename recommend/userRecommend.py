@@ -5,14 +5,6 @@ from firebase_admin import db
 from urllib.request import urlopen
 import json
 
-# from recommend.views import account_list
-
-#from .models_post import Ratings
-
-#url = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000/posts/"
-#responseBody = urlopen(url).read().decode('utf-8')
-#jsonArray = json.loads(responseBody)
-
 cred = credentials.Certificate("healingfeeling-9c1bf-firebase-adminsdk-kktgb-7226f7ac89.json")
 firebase_admin.initialize_app(cred,{
     'databaseURL' : 'https://healingfeeling-9c1bf-default-rtdb.firebaseio.com/'
@@ -36,9 +28,6 @@ saddirwhere = db.reference('sadscore').child('장소')
 print(happydirsong.get())
 print(angrydirsong.get())
 print(saddirsong.get())
-#print('views.RatingsSerializer'.objects.order_by('happysongtitle').first())
-
-#print(account_list('GET'))
 
 #!/usr/bin/env python
 #coding: utf-8
