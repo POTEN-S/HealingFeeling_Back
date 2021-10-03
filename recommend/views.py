@@ -11,9 +11,13 @@ from rest_framework.parsers import JSONParser
 #     queryset = Post.objects.all()
 #     serializer_class = PostSerializer
 
+#filter2 = Rating.objects.distinct('happysongratings')
+
 class RatingsViewset(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
+    
     serializer_class = RatingsSerializer
+    #print(Rating.objects.filter(happysongtitle="0"))
 
 
 

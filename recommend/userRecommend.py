@@ -1,7 +1,14 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
-from .views import RatingsSerializer
+from urllib.request import urlopen
+import json
+
+#from .models_post import Ratings
+
+url = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000/posts/"
+responseBody = urlopen(url).read().decode('utf-8')
+jsonArray = json.loads(responseBody)
 
 cred = credentials.Certificate("healingfeeling-9c1bf-firebase-adminsdk-kktgb-7226f7ac89.json")
 firebase_admin.initialize_app(cred,{
@@ -26,7 +33,9 @@ saddirwhere = db.reference('sadscore').child('장소')
 print(happydirsong.get())
 print(angrydirsong.get())
 print(saddirsong.get())
-print("fdkfajlsd"+RatingsSerializer.objects.order_by('happysongtitle').first())
+#print('views.RatingsSerializer'.objects.order_by('happysongtitle').first())
+for list2 in jsonArray:
+    print(list2["happysongtitle"]+"********************************")
 
 
 #!/usr/bin/env python
