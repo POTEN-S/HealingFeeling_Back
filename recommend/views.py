@@ -31,4 +31,7 @@ def account_list(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
-
+    elif request.method == 'GET':
+        ratings = Rating.objects.filter(happybookratings = "0")
+        serializer = RatingsSerializer(ratings, many = True)
+        return JsonResponse(serializer.data)
